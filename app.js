@@ -76,8 +76,11 @@ io.on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		if (addedUser) {
 			var rooms = Object.keys(socket.adapter.rooms);
+			
 			for(var i in rooms){
+				
 				if(numUsers[rooms[i]]) {
+					
 					--numUsers[rooms[i]];
 					socket.to(rooms[i]).emit('user left', {
 						username: socket.username,
