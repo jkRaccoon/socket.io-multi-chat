@@ -26,7 +26,7 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  var socket = io('http://chat.bal.pe.kr:4041');
+  var socket = io();
 
   function addParticipantsMessage (data) {
     var message = '';
