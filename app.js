@@ -80,8 +80,8 @@ io.on('connection', function (socket) {
 			for(var i in rooms){
 				
 				if(numUsers[rooms[i]]) {
-					
-					--numUsers[rooms[i]];
+
+					numUsers[rooms[i]] = socket.adapter.rooms[rooms[i]].length;
 					socket.to(rooms[i]).emit('user left', {
 						username: socket.username,
 						numUsers: numUsers[rooms[i]]
