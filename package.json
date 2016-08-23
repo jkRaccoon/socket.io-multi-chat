@@ -1,0 +1,23 @@
+{
+  "name": "multichat",
+  "version": "1.0.0",
+  "description": "socket.io를 이용한 websocket 버전 멀티채팅",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkRaccoon/socket.io-multi-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkRaccoon/socket.io-multi-chat/issues"
+  },
+  "homepage": "https://github.com/jkRaccoon/socket.io-multi-chat#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "socket.io": "^1.4.8"
+  }
+}
