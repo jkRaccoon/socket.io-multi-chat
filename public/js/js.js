@@ -26,7 +26,8 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  var socket = io();
+
+  var socket = io(document.location.hostname+":4041");
 
   function addParticipantsMessage (data) {
     var message = '';
