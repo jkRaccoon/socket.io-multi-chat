@@ -23,7 +23,10 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 	
 	chat.emit('add user', {username:$rootScope.username , room:$rootScope.room});
 	chat.emit('set room', $scope.room);
-	$("#chatinput").focus();
+	
+	
+	
+	//$("#chatinput").focus();
 	$scope.message = "";
 	$scope.newMessage = function(){
 		//console.log($scope.message)
@@ -31,16 +34,16 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 			username: $rootScope.username,
 			message : $scope.message , 
 			room : $rootScope.room
-		}
+		};
 		$scope.message = "";
 		addChatMessage(data);
 		chat.emit('new message', data);
-		$("#chatinput").focus();
-	}
+		//$("#chatinput").focus();
+	};
 	
 	$scope.typing = function(){
 		updateTyping();
-	}
+	};
 	
 	chat.on('login', function (data) {
 		connected = true;
@@ -99,7 +102,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 	// Adds the visual chat typing message
 	function addChatTyping (data) {
 		data.typing = true;
-		data.message = 'is typing';
+		data.message = ' is typing';
 		addChatMessage(data);
 	}
 	function addChatMessage(data,options){
@@ -118,7 +121,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 	    	.text(data.message);
 	
 	    var typingClass = data.typing ? 'typing' : '';
-	    var $messageDiv = $('<li class="message"/>')
+	    var $messageDiv = $('<p class="message"/>')
 			.data('username', data.username)
 			.addClass(typingClass)
 			.append($usernameDiv, $messageBodyDiv);
@@ -182,7 +185,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 	}
 	// Log a message
 	function log (message, options) {
-		var $el = $('<li>').addClass('log').text(message);
+		var $el = $('<p>').addClass('log').text(message);
 		addMessageElement($el, options);
 	}
 	
