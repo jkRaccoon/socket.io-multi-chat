@@ -23,7 +23,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 	
 	chat.emit('add user', {username:$rootScope.username , room:$rootScope.room});
 	chat.emit('set room', $scope.room);
-	
+	$("#chatinput").focus();
 	$scope.message = "";
 	$scope.newMessage = function(){
 		//console.log($scope.message)
@@ -35,6 +35,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 		$scope.message = "";
 		addChatMessage(data);
 		chat.emit('new message', data);
+		$("#chatinput").focus();
 	}
 	
 	$scope.typing = function(){
@@ -57,8 +58,9 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 		$state.go('login');
 	})
 	chat.on('new message', function (data) {
-		console.log(data);
+//		console.log(data);
 		addChatMessage(data);
+		
 	});
 	// Whenever the server emits 'user joined', log it in the chat body
 	chat.on('user joined', function (data) {
@@ -147,6 +149,7 @@ app.controller('chatConroller', function($scope,$rootScope,$location,$cookies,$h
 			$messages.append($el);
 		}
 		document.body.scrollTop = document.body.scrollHeight;
+		
 	}
 	function removeChatTyping (data) {
 		getTypingMessages(data).fadeOut(function () {
