@@ -22,7 +22,7 @@ io.on('connection', function (socket) {
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
     // we tell the client to execute 'new message'
-   //console.log(data)
+   
     socket.to(data.room).emit('new message', {
       username: socket.username,
       message: data.message
@@ -36,38 +36,50 @@ io.on('connection', function (socket) {
     // we store the username in the socket session for this client
     socket.username = data.username;
 
-    if(!numUsers[data.room])numUsers[data.room] = 0;
-    ++numUsers[data.room];
+    if(!numUsers[data.room] || !socket.adapter.rooms[data.room]) {
+	    numUsers[data.room] = 1;
+	}else{
+		numUsers[data.room] = socket.adapter.rooms[data.room].length + 1;
+	}
+	
+	
+	
     addedUser = true;
     socket.emit('login', {
     	numUsers: numUsers[data.room]
     });
     // echo globally (all clients) that a person has connected
     socket.to(data.room).emit('user joined', {
-      username: socket.username,
-      numUsers: numUsers[data.room]
+    	username: socket.username,
+		numUsers: numUsers[data.room]
+
     });
    
   });
   socket.on('set room', function (room) {
 	  
 	   socket.currentroom = room;
-	   socket.join(room,function(){
-	   //console.log(socket)
+	   socket.join(room,function(data){
+	   		//console.log(socket.adapter.rooms[room].sockets)
+	   		
+	   		for(var i in socket.adapter.rooms[room].sockets){
+		   		//console.log(i)
+	   		}
+	  	 
 	   });
 	   
   });
   
   // when the client emits 'typing', we broadcast it to others
-  socket.on('typing', function () {
-    socket.broadcast.emit('typing', {
+  socket.on('typing', function (room) {
+    socket.to(room).emit('typing', {
       username: socket.username
     });
   });
 
   // when the client emits 'stop typing', we broadcast it to others
-  socket.on('stop typing', function () {
-    socket.broadcast.emit('stop typing', {
+  socket.on('stop typing', function (room) {
+    socket.to(room).emit('stop typing', {
       username: socket.username
     });
   });
@@ -76,11 +88,8 @@ io.on('connection', function (socket) {
 	socket.on('disconnect', function () {
 		if (addedUser) {
 			var rooms = Object.keys(socket.adapter.rooms);
-			
 			for(var i in rooms){
-				
 				if(numUsers[rooms[i]]) {
-
 					numUsers[rooms[i]] = socket.adapter.rooms[rooms[i]].length;
 					socket.to(rooms[i]).emit('user left', {
 						username: socket.username,
@@ -90,4 +99,17 @@ io.on('connection', function (socket) {
 			}
 		}
 	});
+	
+	
+	function findClientsSocket(roomId, namespace) {
+	    var res = []
+	    , ns = io.of(namespace ||"/");    // the default namespace is "/"
+	//console.log(io.sockets.adapter.rooms[roomId])
+	    var clients_in_the_room = io.sockets.adapter.rooms[roomId]; 
+		for (var clientId in clients_in_the_room ) {
+		  //console.log('client: %s', clientId); //Seeing is believing 
+		  var client_socket = io.sockets.connected[clientId];//Do whatever you want with this
+		}
+	    return client_socket;
+	}
 });

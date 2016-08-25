@@ -1,35 +1,36 @@
-<!doctype html>
-<html lang="en">
+<html lang="kr" ng-app="raccoonchat">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Raccoons multi chat</title>
-  <link rel="stylesheet" href="css/css.css">
+  <link rel="stylesheet" href="bower_components/angular-aside/dist/css/angular-aside.min.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="css/css.css">
 </head>
-<body>
-  <ul class="pages">
-    <li class="chat page">
-      <div class="chatArea">
-        <ul class="messages"></ul>
-      </div>
-      <input class="inputMessage" placeholder="Type here..."/>
-    </li>
-    <li class="login page">
-      <div class="form">
-        <h3 class="title">What's your nickname?</h3>
-        <input class="usernameInput" type="text" maxlength="14" />
-        <h3 class="title">What's your room?</h3>
+<body >
+	<div ui-view></div>
+  
 
-        <input class="roomnumber" type="text" maxlength="14" value="codecraft" />
-      </div>
-    </li>
-  </ul>
-
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/socket.io-client/socket.io.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="js/js.js"></script>
+	<script src="bower_components/jquery/jquery.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/socket.io-client/socket.io.js"></script>
+	<script src="bower_components/angular-socket-io/socket.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+	<script src="bower_components/angular-base64/angular-base64.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+	<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+	<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-translate/angular-translate.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script src="bower_components/angular-aside/dist/js/angular-aside.min.js"></script>
+	<!--script src="js/js.js"></script-->
+	<script src="js/app.js"></script>
+	<script src="js/controller/login.js"></script>
+	<script src="js/controller/chat.js"></script>
+	<script src="js/factory/chat.js"></script>
+  
 </body>
 </html>
